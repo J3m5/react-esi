@@ -4,6 +4,52 @@ Always reference these instructions first and fallback to search or bash command
 
 React ESI is a TypeScript library for React and Next.js that provides blazing-fast server-side rendering using Edge Side Includes (ESI). The repository uses pnpm workspaces with a main library and two example applications demonstrating Express and Next.js integration.
 
+## How React ESI Works
+
+React ESI enables **component-level caching** for server-side rendered React applications by leveraging Edge Side Includes (ESI), a W3C standard supported by most CDNs and cache proxies.
+
+### Core Architecture
+
+**1. Component Wrapping with HOC**
+- Components are wrapped with `withESI(Component, "FragmentID")` Higher Order Component
+- Server-side: HOC renders `<esi:include src="/_fragment?fragment=FragmentID&props=...&sign=...">` tags
+- Client-side: HOC renders the actual component with server-computed props
+
+**2. Fragment Generation Pipeline**
+- Each ESI-wrapped component gets a unique, signed URL endpoint (e.g., `/_fragment?fragment=MyFragment&props=...&sign=...`)
+- The fragment handler (`lib/src/server.tsx`) serves individual component HTML + JavaScript injection script
+- URLs are cryptographically signed with `REACT_ESI_SECRET` to prevent tampering
+- Props are JSON-serialized and passed through the URL parameters
+
+**3. Cache Layer Integration**
+- ESI-compatible caches (Varnish, Cloudflare Workers, Akamai, Fastly) fetch fragments independently
+- Each fragment can have its own `Cache-Control` headers and TTL via component's `getInitialProps()`
+- Cache assembles the final page by replacing `<esi:include>` tags with fetched fragment content
+- Highly dynamic components can be cached for seconds while static components cache for hours
+
+**4. Client-Side Hydration**
+- Fragment responses include `<script>window.__REACT_ESI__[fragmentID] = {...props}</script>`
+- Client-side React components reuse server-computed props from `window.__REACT_ESI__`
+- `getInitialProps()` is called server-side only; client-side uses cached props for instant hydration
+- Seamless transition from server-rendered fragments to interactive React components
+
+### Performance Benefits
+
+**Edge Caching**: After first render, fragments are served in milliseconds from edge servers close to users
+**Selective Invalidation**: Different components can have different cache lifetimes (TTLs)
+**Reduced Server Load**: Only cache misses hit the origin server; cache hits are served directly by the edge
+**SEO Optimized**: Full server-side rendering with component-level caching granularity
+
+### Request Flow Example
+
+1. User requests `/` → Cache server receives request
+2. Page contains `<esi:include src="/_fragment?fragment=Header&props={}&sign=abc123">`
+3. Cache checks if Header fragment is cached and valid (TTL not expired)
+4. **Cache Hit**: Serve cached fragment → **Cache Miss**: Fetch from origin server's `/_fragment` endpoint
+5. Origin server renders Header component, calls `getInitialProps()`, returns `<script>window.__REACT_ESI__...</script><header>...</header>`
+6. Cache assembles final page by replacing ESI tags with fragments
+7. Client receives fully-rendered HTML, React hydrates with pre-computed props
+
 ## Working Effectively
 
 ### Bootstrap and Dependencies
