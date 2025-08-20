@@ -6,6 +6,7 @@
   },
   "testing.openTesting": "neverOpen",
   "eslint.workingDirectories": ["lib/", "examples/express/", "examples/next/"],
+  "eslint.experimental.useFlatConfig": true,
   "editor.codeActionsOnSave": {
     "source.eslint.fixAll": "explicit"
   },
