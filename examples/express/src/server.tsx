@@ -38,7 +38,7 @@ server.get(path, (req, res) => {
     res,
     // "fragmentID" is the second parameter passed to the "WithESI" HOC,
     // the root component used for this fragment must be returned
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     (fragmentID) => require(`./components/${fragmentID}`).default
   );
 });

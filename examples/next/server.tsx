@@ -21,7 +21,7 @@ app.prepare().then(() => {
   server.get(path, (req, res) => {
     try {
       return serveFragment(req, res, (fragmentID) => {
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         return require(`./components/${fragmentID}`).default;
       });
     } catch (error) {

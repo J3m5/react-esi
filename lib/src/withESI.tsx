@@ -28,7 +28,7 @@ const safeRequireServer = () => {
   try {
     // Necessary for NextJS
     return eval("require('react-esi/lib/server')");
-  } catch (error) {
+  } catch {
     // Necessary for Express and others
     return eval("require('./server')");
   }

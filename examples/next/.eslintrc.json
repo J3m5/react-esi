@@ -1,8 +1,0 @@
-{
-  "extends": ["eslint:recommended", "plugin:@next/next/recommended"],
-  "settings": {
-    "next": {
-      "rootDir": "./examples/next/"
-    }
-  }
-}
