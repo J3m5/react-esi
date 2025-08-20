@@ -1,6 +1,5 @@
 {
   "version": "0.3.1",
-  "type": "module",
   "private": true,
   "description": "React ESI: Blazing-fast Server-Side Rendering for React and Next.js",
   "repository": "https://github.com/dunglas/react-esi",
