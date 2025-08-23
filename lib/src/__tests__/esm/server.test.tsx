@@ -1,4 +1,7 @@
-import { serveFragmentExpress, createIncludeElement } from "../../esm/server";
+import {
+  serveFragmentExpress,
+  createIncludeElement,
+} from "../../esm/server.js";
 import React from "react";
 
 // Simple resolver that returns a component

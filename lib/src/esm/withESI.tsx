@@ -1,5 +1,5 @@
 import React from "react";
-import { createIncludeElement } from "./server";
+import { createIncludeElement } from "./server.js";
 
 export default function withESI<P>(
   WrappedComponent: React.ComponentType<P>,
@@ -15,7 +15,7 @@ export default function withESI<P>(
 
     // Client: lazy load client wrapper and render
     const ESIClient = React.lazy(() =>
-      import("./withESI.client").then((m) => ({
+      import("./withESI.client.js").then((m) => ({
         default: () =>
           m.ESIClientWrapper({
             WrappedComponent,

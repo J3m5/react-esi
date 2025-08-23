@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { ESIClientWrapper } from "../../esm/withESI.client";
+import { ESIClientWrapper } from "../../esm/withESI.client.js";
 
 function TestComponent({ message }: { message?: string }) {
   return <div data-testid="msg">{message}</div>;

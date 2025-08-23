@@ -1,1 +1,1 @@
-export { default } from "./esm/withESI";
+export { default } from "./esm/withESI.js";

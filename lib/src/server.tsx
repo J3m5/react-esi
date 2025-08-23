@@ -3,4 +3,4 @@ export {
   serveFragmentExpress as serveFragment,
   serveFragmentNext,
   path,
-} from "./esm/server";
+} from "./esm/server.js";
