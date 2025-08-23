@@ -5,8 +5,8 @@
     "strict": true,
 
     /* Modules */
-    "moduleResolution": "Node10",
-    "module": "CommonJS",
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext",
     "rootDir": "./src/",
 
     /* Emit */

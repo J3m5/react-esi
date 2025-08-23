@@ -5,6 +5,7 @@
   "repository": "https://github.com/dunglas/react-esi",
   "license": "MIT",
   "author": "Kévin Dunglas",
+  "type": "module",
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

@@ -16,5 +16,6 @@
     "javascriptreact",
     "typescript",
     "typescriptreact"
-  ]
+  ],
+  "testing.automaticallyOpenTestResults": "neverOpen"
 }
