@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import PropTypes from "prop-types";
-import React from "react";
+import { Component } from "react";
 
 interface MyFragmentProps {
   greeting: string;
@@ -13,7 +13,7 @@ type GetInitialProps = {
   req?: Request;
 };
 
-export default class MyFragment extends React.Component<MyFragmentProps> {
+export default class MyFragment extends Component<MyFragmentProps> {
   public static propTypes: PropTypes.InferProps<MyFragmentProps>;
   render() {
     return (

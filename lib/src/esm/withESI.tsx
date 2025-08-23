@@ -1,8 +1,8 @@
-import React from "react";
+import { lazy, Suspense, type ComponentType } from "react";
 import { createIncludeElement } from "./server.js";
 
 export default function withESI<P>(
-  WrappedComponent: React.ComponentType<P>,
+  WrappedComponent: ComponentType<P>,
   fragmentID: string
 ) {
   function WithESI(
@@ -14,7 +14,7 @@ export default function withESI<P>(
     }
 
     // Client: lazy load client wrapper and render
-    const ESIClient = React.lazy(() =>
+    const ESIClient = lazy(() =>
       import("./withESI.client.js").then((m) => ({
         default: () =>
           m.ESIClientWrapper({
@@ -28,14 +28,14 @@ export default function withESI<P>(
     );
 
     return (
-      <React.Suspense fallback={null}>
+      <Suspense fallback={null}>
         <ESIClient />
-      </React.Suspense>
+      </Suspense>
     );
   }
 
   // For debugging
   WithESI.displayName = `WithESI(${WrappedComponent.displayName || WrappedComponent.name || "Component"})`;
 
-  return WithESI as React.ComponentType<any>;
+  return WithESI as ComponentType<any>;
 }

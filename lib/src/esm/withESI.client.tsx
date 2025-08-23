@@ -1,10 +1,11 @@
 "use client";
 export {};
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, type ComponentType } from "react";
 
 interface IWithESIClientProps {
-  WrappedComponent: React.ComponentType<any>;
+  WrappedComponent: ComponentType<any>;
+
   fragmentID: string;
   esi?: { attrs?: { [key: string]: string | null } };
   initialProps?: object;

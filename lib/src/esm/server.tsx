@@ -1,7 +1,7 @@
 import crypto from "crypto";
 import type { Transform } from "stream";
 import { Readable } from "stream";
-import React from "react";
+import { createElement, type ComponentType } from "react";
 import type { PipeableStream } from "react-dom/server";
 import { renderToPipeableStream } from "react-dom/server";
 
@@ -42,7 +42,7 @@ export const createIncludeElement = (
 
   esiAt.src = url.pathname + url.search;
 
-  return React.createElement("esi:include", esiAt);
+  return createElement("esi:include", esiAt);
 };
 
 interface IServeFragmentOptions {
@@ -54,7 +54,7 @@ type Resolver = (
   props: object,
   req: any,
   res: any
-) => React.ComponentType<any>;
+) => ComponentType<any>;
 
 export async function serveFragmentExpress(
   req: { url: string },
@@ -97,9 +97,7 @@ export async function serveFragmentExpress(
   const scriptStream = Readable.from(script);
   scriptStream.pipe(res, { end: false });
 
-  const stream = renderToPipeableStream(
-    React.createElement(Component, childProps)
-  );
+  const stream = renderToPipeableStream(createElement(Component, childProps));
 
   const lastStream = options.pipeStream ? options.pipeStream(stream) : stream;
 

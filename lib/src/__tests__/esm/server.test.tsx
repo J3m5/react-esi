@@ -2,11 +2,11 @@ import {
   serveFragmentExpress,
   createIncludeElement,
 } from "../../esm/server.js";
-import React from "react";
+import { createElement } from "react";
 
 // Simple resolver that returns a component
 const resolver = (id: string) => (props: any) =>
-  React.createElement("div", null, "ok");
+  createElement("div", null, "ok");
 
 describe("serveFragmentExpress", () => {
   test("returns 400 for bad signature", async () => {
